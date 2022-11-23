@@ -21,12 +21,14 @@ constructor(private val repository: TvShowRepository) : ViewModel() {
         get() = _response
 
     init {
+        //mendapatkan informasi dari server
         getAllTvShows()
     }
 
     private fun getAllTvShows() = viewModelScope.launch {
         repository.getTvShows().let {response ->
-
+            //jika view model berhasil maka akan memberikan respon
+            //jika tidak berhasil maka akan menampilkan sebuah pesan
             if (response.isSuccessful){
                 _response.postValue(response.body())
             }else{
